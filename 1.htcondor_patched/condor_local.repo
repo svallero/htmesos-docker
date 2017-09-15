@@ -1,0 +1,5 @@
+[condor_local]
+name="condor_local"
+baseurl="file:///htcondor_patched"
+gpgcheck=0
+enabled=1

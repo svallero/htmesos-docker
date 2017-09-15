@@ -1,0 +1,12 @@
+### 1.htcondor_patched: ###
+install a patched version of HTCondor from private repo.
+It is necessary to avoid a bug that prevents resources to be Uncalimed 
+in the MPI case. The corresponding image should be made available in DockerHub.
+
+### 2.base_image: ###
+here we install packages, including OpenMPI.
+Mind that one should install an MPI version corresponding to the right architecture
+ on which the image will run (this is sooo not Docker-like... but we need it for HPC).
+
+### 3.occam_image: ###
+here we configure HTCondor and other stuff for OCCAM. 

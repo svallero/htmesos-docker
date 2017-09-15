@@ -1,0 +1,4 @@
+[program:publish_queue]
+command=python /opt/condor_status/publish_idle.py
+stderr_logfile=/var/log/condor_status.err
+autostart=true
