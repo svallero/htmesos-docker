@@ -26,14 +26,14 @@ def set_role_daemons(role,master_address):
        sys.exit(1)     
 
      content=utils.read_file('/etc/condor/condor_config') 
-     content.replace("@ROLE_DAEMONS@", daemons)
+     content=content.replace('@ROLE_DAEMONS@', daemons)
      
      if role == 'master':
-       content.replace("@CONDOR_HOST@", "$(IP_ADDRESS)")
+       content=content.replace("@CONDOR_HOST@", "$(IP_ADDRESS)")
        content+="\n\nCOLLECTOR_HOST=$(IP_ADDRESS)"
      else:
-       content.replace("@CONDOR_HOST@", master_address)
-    
+       content=content.replace("@CONDOR_HOST@", master_address)
+     #print content  
      utils.write_file('/etc/condor/condor_config', content) 
 
      

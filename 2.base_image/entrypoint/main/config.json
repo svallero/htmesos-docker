@@ -2,7 +2,7 @@
   "role": "submitter",
   "master_address": "127.0.0.1",
   "condor_config": {
-      "config_url": "https://gitlab.c3s.unito.it/htadmin/AdminKey/raw/master/occam_htadmin.pub",
+      "config_url": "",
       "shared_secret": "condor_shared_secret_here"    
   },
   "users": [
@@ -17,7 +17,7 @@
         "password": "passwd",
         "key": "https://gitlab.c3s.unito.it/htadmin/AdminKey/raw/master/occam_htadmin.pub", 
         "uid": 501 
-      }
+      }     
   ],
   "root_public_key": "https://gitlab.c3s.unito.it/htadmin/AdminKey/raw/master/occam_htadmin.pub",
   "ldap": false,

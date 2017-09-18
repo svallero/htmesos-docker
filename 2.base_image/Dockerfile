@@ -25,7 +25,7 @@ RUN     yum makecache fast
 RUN     set -ex \
         && yum -y install epel-release \
         && yum -y install git vim wget procps curl python-pip && yum clean all\
-        && pip install supervisor supervisor-stdout
+        && pip install supervisor supervisor-stdout 
 # this is the minimal configuration file,
 # the sssd configuration is added at runtime if LDAP is enabled
 COPY    config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf 
@@ -48,7 +48,7 @@ RUN     set -ex \
 
 RUN     set -ex \ 
         && mkdir -p /opt/health/master/ /opt/health/executor/ /opt/health/submitter/ \ 
-        && pip install Flask          
+        && pip install Flask requests         
 
 COPY    healthchecks/master_healthcheck.py /opt/health/master/healthcheck.py 
 COPY    healthchecks/submitter_healthcheck.py /opt/health/submitter/healthcheck.py 
@@ -86,6 +86,6 @@ RUN     set -ex \
         && yum clean all
 
 ### ENTRYPOINT
-# TODO
-#COPY    scripts/run_centos.sh /usr/local/sbin/run.sh 
-#ENTRYPOINT ["/sbin/tini", "--", "/usr/local/sbin/run.sh"] 
+COPY    entrypoint /root/entrypoint 
+WORKDIR /root/entrypoint/main/
+ENTRYPOINT ["/sbin/tini", "/usr/bin/python", "/root/entrypoint/main/entrypoint.py"] 
