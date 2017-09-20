@@ -1,0 +1,2 @@
+2.base_image/entrypoint/main/*/*.pyc
+2.base_image/entrypoint/main/*.log
