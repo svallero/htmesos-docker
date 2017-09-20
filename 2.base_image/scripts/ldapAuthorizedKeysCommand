@@ -7,7 +7,7 @@ fi
 
 IFS=$'\n\t'
 
-result=$(ldapsearch -H ldap://@LDAP_SERVER@/ -x -b o=c3s,dc=unito,dc=it '(&(objectClass=posixAccount)(uid='"$1"'))' 'sshPublicKey')
+result=$(ldapsearch -H ldap://@SERVER@/ -x -b @SEARCH_BASE@ '(&(objectClass=posixAccount)(uid='"$1"'))' 'sshPublicKey')
 attrLine=$(echo "$result" | sed -n '/^ /{H;d};/sshPublicKey:/x;$g;s/\n *//g;/sshPublicKey:/p')
 
 if [[ "$attrLine" == sshPublicKey::* ]]; then

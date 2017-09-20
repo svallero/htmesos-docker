@@ -1,3 +1,4 @@
+import logging
 import sys
 import argparse
 import json
@@ -7,41 +8,59 @@ import ssh
 import condor
 import healthchecks
 import utils
+import ldap
+
+### Setup logger
+logfile='/var/log/entrypoint.log'
+loglevel=logging.DEBUG
+#logformat='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+logformat='%(asctime)s - %(levelname)s - %(message)s'
+#logging.basicConfig(filename=logfile,level=loglevel,format=logformat)
+logging.basicConfig(level=loglevel,format=logformat)
 
 def main():
     """ Main entry point for the script."""
+
     ### Parse the config file
     parser = argparse.ArgumentParser(description='Entrypoint.')
     parser.add_argument('config_file', nargs=1,
                     help='path to configuration file')
 
     args = parser.parse_args()
-    print "Reading config file: ", args.config_file[0]
+    logging.info("Reading config file: "+args.config_file[0])
 
     with open(str(args.config_file[0])) as data_file:    
       config = json.load(data_file)
     # pprint(data)    
    
     ### Configure role 
-    print "Role must be one of: master, submitter, executor" 
+    logging.info("Role must be one of: master, submitter, executor") 
     role=utils.get_config(config, 'role', '', True)
-    print "Configuring role: ", role 
+    logging.info("Configuring role: "+role) 
     
     ### Setup root public key
-    print "Setting up root public key..."
+    logging.info("Setting up root public key...")
     rpc=utils.get_config(config, 'root_public_key', '', False)
     if rpc:   
        users.setup_root_public(rpc)
 
-    ### Users and ssh access 
-    print "### Setting up users..."
-    usr=utils.get_config(config, 'users', [], False)
-    if usr:   
-      users.setup_users(usr) 
-      ssh.setup()
+    ### Users 
+    logging.info("### Setting up users...")
+    ldap_config=utils.get_config(config,'ldap', {}, False)
+    if ldap_config:
+        logging.info("configuring LDAP client...") 
+        ldap.configure_sssd(ldap_config)
+        ldap.configure_supervisor()
+        ldap.configure_auth_keys_command(ldap_config)
+    else: 
+        usr=utils.get_config(config, 'users', [], False)
+        if usr:   
+          users.setup_users(usr) 
+    ### ssh access
+    ssh.setup()
  
     ### Condor configuration
-    print "### Configuring htcondor..."
+    logging.info("### Configuring htcondor...")
     condor_c=utils.get_config(config, 'condor_config', {}, False)
     if condor_c:
         # custom config file
@@ -59,14 +78,14 @@ def main():
     ### Health-checks
     # if we use htmframe, the executor's healthckeck is different
     # and the submitter should publish some additional info
-    print "### Configuring helath-checks..."
+    logging.info("### Configuring helath-checks...")
     htmframe=utils.get_config(config, 'htmframe', False, False)
     healthchecks.configure_healthchecks(role, htmframe)
     if (htmframe and role == 'submitter'):
         healthchecks.configure_publish_queue()
         
     ### This is the real entrypoint
-    print '### Starting supervisord...'
+    logging.info('### Starting supervisord...')
     utils.runcmd('/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf')
 
     pass

@@ -1,6 +1,7 @@
 import os
 import sys
 import requests
+import logging
 
 def get_config(dictionary, key, default, exit):
     # given a dictionary, get the key value or assign default
@@ -9,21 +10,21 @@ def get_config(dictionary, key, default, exit):
     try:
         value=dictionary[key]
     except:
-        if exit:
-            print 'warning: setting '+key+' to default value: '+default
+        if not exit:
+            logging.warning('setting '+key+' to default value: '+default)
         else:
-            print 'error: parameter '+key+' must be defined'
+            logging.error('parameter '+key+' must be defined')
             sys.exit(1) 
     return value
 
 def runcmd(cmd):
     # TODO: must be improved to catch system errors
     try:
-        print cmd
+        logging.info(cmd)
         os.system(cmd) 
     except:
-        print 'error running command: '
-        print cmd
+        logging.error('error running command: ')
+        logging.error(cmd)
         raise
 
 def url_to_file(url, dest_file, append):

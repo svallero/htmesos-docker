@@ -1,4 +1,5 @@
 import utils
+import logging
 
 def setup_users(users):
   for u in users:

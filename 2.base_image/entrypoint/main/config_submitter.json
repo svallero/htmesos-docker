@@ -1,6 +1,6 @@
 {
   "role": "submitter",
-  "master_address": "127.0.0.1",
+  "master_address": "omkaar-master.marathon.occam-mesos",
   "condor_config": {
       "config_url": "",
       "shared_secret": "condor_shared_secret_here"    
@@ -20,7 +20,12 @@
       }     
   ],
   "root_public_key": "https://gitlab.c3s.unito.it/htadmin/AdminKey/raw/master/occam_htadmin.pub",
-  "ldap": false,
-  "htmframe": true
+  "ldap": {
+      "search_base": "o=c3s,dc=unito,dc=it",
+      "user_search_base": "ou=People,o=c3s,dc=unito,dc=it",
+      "group_search_base": "ou=Group,o=c3s,dc=unito,dc=it",
+      "server": "192.168.0.253"
+  } ,
+  "htmframe": false
 }
 
