@@ -76,14 +76,18 @@ COPY    scripts/ldapAuthorizedKeysCommand /sbin/ldapAuthorizedKeysCommand
 RUN mkdir -p /var/run/sshd
 
 # sssd daemon config
-# should be provided by you at runtime,
-# according to your LDAP configuration
+COPY config/sssd.conf /etc/sssd/sssd.conf
+RUN  chmod 600 /etc/sssd/sssd.conf
 COPY config/nsswitch.conf /etc/nsswitch.conf 
 
 ### For X forwarding
 RUN     set -ex \
         && yum -y install xorg-x11-xauth.x86_64 \ 
         && yum clean all
+
+# VOLUMES
+# this is only for OCCAM, should be moved away
+VOLUME  ["/archive/home"]
 
 ### ENTRYPOINT
 COPY    entrypoint /root/entrypoint 
