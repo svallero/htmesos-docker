@@ -78,7 +78,7 @@ def main():
     ### Health-checks
     # if we use htmframe, the executor's healthckeck is different
     # and the submitter should publish some additional info
-    logging.info("### Configuring helath-checks...")
+    logging.info("### Configuring health-checks...")
     htmframe=utils.get_config(config, 'htmframe', False, False)
     healthchecks.configure_healthchecks(role, htmframe)
     if (htmframe and role == 'submitter'):

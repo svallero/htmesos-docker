@@ -11,7 +11,7 @@ def get_config(dictionary, key, default, exit):
         value=dictionary[key]
     except:
         if not exit:
-            logging.warning('setting '+key+' to default value: '+default)
+            logging.warning('setting '+key+' to default value: '+str(default))
         else:
             logging.error('parameter '+key+' must be defined')
             sys.exit(1) 
