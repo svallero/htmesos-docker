@@ -86,7 +86,8 @@ DISCARD_SESSION_KEYRING_ON_STARTUP = False
 ## Collector and Negotiator configuration (@master workload)
 NEGOTIATOR_INTERVAL = 20
 COLLECTOR_INTERVAL = 10 
-COLLECTOR_UPDATE_INTERVAL = 10
+COLLECTOR_UPDATE_INTERVAL = 10 
+CLAIM_WORKLIFE = 10
 
 ## Allow jobs to run as user
 UID_DOMAIN = *
