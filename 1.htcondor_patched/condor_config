@@ -84,10 +84,13 @@ DAEMON_LIST = MASTER, @ROLE_DAEMONS@
 DISCARD_SESSION_KEYRING_ON_STARTUP = False
 
 ## Collector and Negotiator configuration (@master workload)
-NEGOTIATOR_INTERVAL = 20
-COLLECTOR_INTERVAL = 10 
-COLLECTOR_UPDATE_INTERVAL = 10 
-CLAIM_WORKLIFE = 10
+## very important to tune elasticity, 
+## or dead workers are removed after a default of 15 min!!!
+CLASSAD_LIFETIME = 30
+UPDATE_INTERVAL = 10
+NEGOTIATOR_UPDATE_INTERVAL = 10
+SCHEDD_INTERVAL = 10
+MASTER_UPDATE_INTERVAL = 10
 
 ## Allow jobs to run as user
 UID_DOMAIN = *
