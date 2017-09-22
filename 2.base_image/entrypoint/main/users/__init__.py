@@ -20,7 +20,7 @@ def setup_users(users):
 def useradd(name, uid):
 
     args=name+" -d /home/"+name+" -s /bin/bash"
-    if uid:
+    if uid > 0:
         args+=' -u '+str(uid) 
     utils.runcmd('useradd '+args)
 

@@ -1,8 +1,0 @@
-2017-09-19 15:33:31,100 CRIT Supervisor running as root (no user in config file)
-2017-09-19 15:33:31,101 INFO supervisord started with pid 15
-2017-09-19 15:33:32,104 INFO spawned: 'stdout' with pid 18
-2017-09-19 15:33:32,106 INFO spawned: 'condor' with pid 19
-2017-09-19 15:33:32,108 INFO spawned: 'health_check' with pid 20
-2017-09-19 15:33:33,297 INFO success: stdout entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
-2017-09-19 15:33:33,297 INFO success: condor entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
-2017-09-19 15:33:33,297 INFO success: health_check entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

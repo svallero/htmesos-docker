@@ -8,7 +8,7 @@ def configure_healthchecks(role, htmframe):
  
     if htmframe and role == 'executor':
         logging.info('configuring for htmframe')
-        content=content.replace('executor_healthcheck.py','executor_healthcheck_htmf.py')
+        content=content.replace('healthcheck.py','healthcheck_htmf.py')
    
     utils.write_file('/etc/supervisor/conf.d/supervisord.conf', content) 
 
