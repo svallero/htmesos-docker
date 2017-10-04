@@ -1,3 +1,4 @@
 2.base_image/entrypoint/main/*/*.pyc
 2.base_image/entrypoint/main/*.log
 1.htcondor_patched/htcondor_patched
+3.occam_image/MLNX_OFED_LINUX-*
