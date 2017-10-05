@@ -26,6 +26,6 @@
       "group_search_base": "ou=Group,o=c3s,dc=unito,dc=it",
       "server": "192.168.0.253"
   } ,
-  "htmframe": false
+  "elastic": false
 }
 

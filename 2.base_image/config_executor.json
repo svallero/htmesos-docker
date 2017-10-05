@@ -15,6 +15,6 @@
       }
   ],
   "ldap": {} ,
-  "htmframe": false
+  "elastic": false
 }
 

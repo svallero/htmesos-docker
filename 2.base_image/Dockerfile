@@ -43,7 +43,7 @@ COPY    config/sshd_config /etc/ssh/sshd_config
 ### Health-checks
 COPY    repos/condor_official.repo /etc/yum.repos.d/condor_official.repo 
 RUN     set -ex \ 
-        &&  yum install -y condor-python-8.4.8-1.el7.x86_64 --showduplicates \
+        &&  yum install -y condor-python-8.4.8-1.el7.x86_64 --showduplicates --enablerepo=htcondor-stable \
         && yum clean all
 
 RUN     set -ex \ 
@@ -61,7 +61,7 @@ COPY    healthchecks/executor_healthcheck_htmf.py /opt/health/executor/healthche
 RUN     set -ex \ 
         && mkdir -p /opt/condor_status/ \ 
         && yum -y remove python-pip          
-COPY    condor_status/publish_idle.py /opt/condor_status/publish_idle.py
+COPY    condor_status/publish_status.py /opt/condor_status/publish_status.py
 
 ### Patch to avoid mpirun timeout looking for IB device
 # should be fixed in Centos 7.4
