@@ -45,7 +45,7 @@ def idle_nodes():
         abort(401)
 
 @app.route("/busy_nodes")
-def idle_nodes():
+def busy_nodes():
     try:
         coll = htcondor.Collector()
         proj = coll.query(htcondor.AdTypes.Startd, projection=['Name', 'State', 'Activity'])
